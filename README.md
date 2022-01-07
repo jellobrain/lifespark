@@ -6,7 +6,14 @@
 4. Each of the files listed below has a connection section with specific information about user/password that need to be configured first for the local environment you are working with.  I have commented those areas with the words 'CHANGEME'.
 5. To run the files, navigate to the lifespark/charette folder, and type 'python3 <filename>'.
 
-## Files
+## Next Steps
+One thing I though might be helpful is giving an idea of what I would do if there were more time to clean things up.
+
+1. Right now although they are written using python, they aren't set up in a way that capitalized on the objects and classes being thrown around here.  If I were to refactor, the first thing that I would do is to model the code in OOP.  I think it would shorten it, and it would also make it possible to make number 2 happen.
+
+2. The next thing I would do is to create an admin/main landing page from which a person could execute the things needed but through more of a guided user interface that steers you through a process of selecting options instead of running files from the terminal.  
+
+# Files
 The files in the lifespark repository are files that I was provided with by lifespark
 
 The files that do all the magic, are in the lifespark/charette folder.  They are organized into processes:
