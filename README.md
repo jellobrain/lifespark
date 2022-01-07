@@ -19,7 +19,8 @@ The files in the lifespark repository are files that I was provided with by life
 The files that do all the magic, are in the lifespark/charette folder.  They are organized into processes:
 
 ### import.py
-THIS IS THE FIRST FILE YOU SHOULD RUN.
+THIS IS THE FIRST FILE YOU SHOULD RUN. It adds some database views that will not be added if this is not run.
+  
 The import.py file takes care of uploading and processing the different csv files into the database.  
 It also creates a list of views that will be used later in the 'results.py' file.
 This file is complete for all three data sets, but the datasets can also be imported individually using the:
