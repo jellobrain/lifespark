@@ -1,0 +1,58 @@
+
+CREATE DATABASE lifespark;
+
+#this is not a serial because I was not sure how this table would be/need updated.
+CREATE TABLE members (
+    member_id int,
+    first_name varchar(100) not null,
+    last_name varchar(100) not null,
+    dob date null,
+    gender char(10) null,
+    PRIMARY KEY (member_id)
+);
+
+#this is not a serial because I was not sure how this table would be/need updated.
+CREATE TABLE codes (
+    id int,
+    code varchar(10) not null,
+    cost int(20) not null,
+    code_desc varchar(255) null,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE admissions (
+    record_id int AUTO_INCREMENT,
+    id int, 
+    member_id int,
+    first_name varchar(100),
+    last_name varchar(100),
+    dob date,
+    gender char(10),
+    code varchar(10),
+    admission_date datetime,
+    discharge_date datetime,
+    magic varchar(255) null,
+    PRIMARY KEY (record_id, member_id)
+);
+
+1) 
+CREATE VIEW permember_cost AS SELECT DISTINCT a.member_id, SUM(c.cost) AS 'total_cost' FROM admissions a, codes c WHERE a.code = c.code GROUP BY a.member_id ORDER BY a.member_id;
+ 
+SELECT DISTINCT pc.member_id, a.first_name, a.last_name, pc.total_cost FROM permember_cost pc, admissions a WHERE pc.member_id = a.member_id ORDER BY total_cost desc LIMIT 10;
+
+
+4) 
+CREATE VIEW peradmission_time AS SELECT DISTINCT record_id, member_id, admission_date, TIME_TO_SEC(TIMEDIFF(discharge_date, admission_date))  AS 'length_stay' FROM admissions;
+
+SELECT DISTINCT pt.member_id, a.first_name, a.last_name, pt.admission_date, pt.length_stay FROM peradmission_time pt, admissions a WHERE pt.member_id = a.member_id ORDER BY length_stay desc LIMIT 10;
+
+
+2) 
+SELECT distinct YEAR(a.admission_date) as 'year', date_format(a.admission_date, '%U') as 'week', count(a.member_id) as 'num_admissions', sum(c.cost) as 'total_cost' FROM admissions a, codes c WHERE a.code = c.code group by YEAR(a.admission_date), date_format(a.admission_date,'%U') order by YEAR(a.admission_date) desc, week;
+
+
+3)
+WITH individual_admissions (member_id, admission_date) as (SELECT member_id, admission_date FROM admissions) SELECT a.member_id, a.first_name, a.last_name, a.admission_date as 'admision_date1', ia.admission_date as 'admission_date2', (UNIX_TIMESTAMP(ia.admission_date) - UNIX_TIMESTAMP(a.admission_date)) as 'DIFF' FROM admissions a, individual_admissions ia WHERE ia.member_id = a.member_id AND (UNIX_TIMESTAMP(ia.admission_date) - UNIX_TIMESTAMP(a.admission_date))<2592000 AND UNIX_TIMESTAMP(a.admission_date) < UNIX_TIMESTAMP(ia.admission_date) order by a.member_id;
+
+    
+
