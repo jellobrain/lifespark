@@ -3,7 +3,7 @@
 1. This repository assumes that you have an empty database setup called 'lifespark' on a local mysql server.
 2. It also assumes the use of Python3.
 3. Code is commented out for readability.
-4. Each of the files listed below has a connection section with specific information about user/password that need to be configured first for the local environment you are working with.  I have commented those areas with the words 'CHANGEME'.
+4. Each of the python files listed below has a connection section of code with specific information about user/password that need to be configured first for the local environment you are working with.  I have commented those areas with the words 'CHANGEME'.
 5. To run the files, navigate to the lifespark/charette folder, and type 'python3 <filename>'.
 
 ## Next Steps
