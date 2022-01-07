@@ -39,9 +39,6 @@ This file queries the tables and views in the database, and it brings in the dat
 ### scratchpad
 This is a text files I used to keep track of SQL queries initially.
 
-### other files
-The other files are part of what was created by the IDE I am working with.
-
 ### video
 I am out of time to do my video, and am happy to still complete that part if you feel it is necessary.  My hope is that with what is here with the code and comments and this README, you will have enough to understand how to make this run.
 
