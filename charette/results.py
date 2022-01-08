@@ -7,6 +7,7 @@
 
 import pandas as pd
 import connection
+import main
 
 
 def fullmonty(user, password):
@@ -70,6 +71,7 @@ def fullmonty(user, password):
     df_readmission.to_csv('../3.readmissions.csv')
     df_adm_longest.to_csv('../4.longest_admissions.csv')
 
+    main.home()
 
 def costmembers(user, password):
     conn = connection.connect(user, password)
@@ -84,6 +86,8 @@ def costmembers(user, password):
     df_mem_cost.columns = ["member_id", "first_name", "last_name", "total_cost"]
     # Export these data into a csv file.
     df_mem_cost.to_csv('../1.10_highest_costing_members.csv')
+
+    main.home()
 
 
 def admcostcount(user, password):
@@ -102,6 +106,8 @@ def admcostcount(user, password):
 
     # Export these data into a csv file.
     df_adm_cost_count.to_csv('../2.cost_count_admissions_by_week.csv')
+
+    main.home()
 
 
 def readmissions(user, password):
@@ -127,6 +133,8 @@ def readmissions(user, password):
     # Export these data into a csv file.
     df_readmission.to_csv('../3.readmissions.csv')
 
+    main.home()
+
 
 def admlongest(user, password):
     conn = connection.connect(user, password)
@@ -142,5 +150,7 @@ def admlongest(user, password):
 
     # Export these data into a csv file.
     df_adm_longest.to_csv('../4.longest_admissions.csv')
+
+    main.home()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

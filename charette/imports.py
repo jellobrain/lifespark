@@ -8,6 +8,7 @@
 import pandas as pd
 from datetime import datetime
 import connection
+import main
 
 
 def fullmonty(user, password):
@@ -195,6 +196,8 @@ def fullmonty(user, password):
     cursor.execute("CREATE VIEW peradmission_time AS SELECT DISTINCT record_id, member_id, admission_date, "
                    "TIME_TO_SEC(TIMEDIFF(discharge_date, admission_date))  AS 'length_stay' FROM admissions;")
     conn.commit()
+
+    main.home()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

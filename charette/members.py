@@ -7,6 +7,7 @@
 
 import pandas as pd
 import connection
+import main
 
 
 def members(user, password):
@@ -43,6 +44,8 @@ def members(user, password):
             # print(cursor.rowcount, "members record inserted.")
 
     conn.commit()
+
+    main.home()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -9,6 +9,7 @@
 import pandas as pd
 from datetime import datetime
 import connection
+import main
 
 
 def admissions(user, password):
@@ -121,6 +122,7 @@ def admissions(user, password):
             cursor.execute(sql, val)
 
     conn.commit()
+    main.home()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

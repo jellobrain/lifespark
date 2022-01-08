@@ -7,6 +7,7 @@
 
 import pandas as pd
 import connection
+import main
 
 
 def codes(user, password):
@@ -38,5 +39,7 @@ def codes(user, password):
             # print(cursor.rowcount, "codes record inserted.")
 
     conn.commit()
+
+    main.home()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
