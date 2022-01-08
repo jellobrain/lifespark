@@ -8,8 +8,10 @@
 import pandas as pd
 import connection
 
-def codes():
-    conn = connection.connect()
+
+def codes(user, password):
+
+    conn = connection.connect(user, password)
     # I am assuming here that when new data is brought into this table, it will be an entire set,
     # so I am first deleting the data from the table.
     cursor = conn.cursor()
@@ -21,7 +23,7 @@ def codes():
     codata = pd.read_csv('../codes.csv', header=0, sep=',')
     codataframe = pd.DataFrame(data=codata)
 
-    #Now we move through each row, and import the data into the table.
+    # Now we move through each row, and import the data into the table.
     for row in codataframe.values:
         if not isinstance(row[0], int):
             pass
@@ -33,12 +35,8 @@ def codes():
             val = (row[0], row[1], row[2], row[3])
 
             cursor.execute(sql, val)
-            #print(cursor.rowcount, "codes record inserted.")
+            # print(cursor.rowcount, "codes record inserted.")
 
     conn.commit()
-
-
-if __name__ == '__codes__':
-    codes()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

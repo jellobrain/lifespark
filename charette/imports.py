@@ -10,8 +10,8 @@ from datetime import datetime
 import connection
 
 
-def fullmonty():
-    conn = connection.connect()
+def fullmonty(user, password):
+    conn = connection.connect(user, password)
     # We are assuming here that when a person runs this complete import, they are starting from scratch.
     # The code assumes that there is an empty database called 'lifespark'.
 
@@ -47,7 +47,7 @@ def fullmonty():
     mdataframe["dob"] = pd.to_datetime(mdataframe["dob"], format="%m/%d/%Y")
     mdataframe["dob"] = mdataframe["dob"].dt.strftime("%Y-%m-%d")
 
-    #Now we move through each row, and import the data into the table.
+    # Now we move through each row, and import the data into the table.
     for row in mdataframe.values:
         if not isinstance(row[0], int):
             pass
@@ -60,7 +60,6 @@ def fullmonty():
             val = (row[0], row[1], row[2], row[3], row[4])
 
             cursor.execute(sql, val)
-            #print(cursor.rowcount, "members record inserted.")
 
     conn.commit()
 
@@ -69,7 +68,7 @@ def fullmonty():
     codata = pd.read_csv('../codes.csv', header=0, sep=',')
     codataframe = pd.DataFrame(data=codata)
 
-    #Now we move through each row, and import the data into the table.
+    # Now we move through each row, and import the data into the table.
     for row in codataframe.values:
         if not isinstance(row[0], int):
             pass
@@ -81,7 +80,6 @@ def fullmonty():
             val = (row[0], row[1], row[2], row[3])
 
             cursor.execute(sql, val)
-            #print(cursor.rowcount, "codes record inserted.")
 
     conn.commit()
 
@@ -100,17 +98,17 @@ def fullmonty():
 
     # We do not need to do this in the same way for the discharge_Date.
     # I am leaving it here for possible use later.
-    #adataframe["discharge_date"] = pd.to_datetime(adataframe["discharge_date"], format="%Y/%m/%d %H:%M:%S UTC")
-    #adataframe["discharge_date"] = adataframe["discharge_date"].dt.strftime("%Y-%m-%d")
+    # adataframe["discharge_date"] = pd.to_datetime(adataframe["discharge_date"], format="%Y/%m/%d %H:%M:%S UTC")
+    # adataframe["discharge_date"] = adataframe["discharge_date"].dt.strftime("%Y-%m-%d")
 
-    #Now we move through each row, and import the data into the table.
+    # Now we move through each row, and import the data into the table.
     for row in adataframe.values:
         # 'magic' is a column I am using to store table column information for fields in the record that were modified
         # on their way in.  So if I have to bring in information that is missing, the column name will appear
         # as a csv in this field.
         magic = ''
         if not isinstance(row[0], int):
-            #if the first column is not a numerical value, then move on.
+            # If the first column is not a numerical value, then move on.
             pass
         else:
             # If admission_date is missing information, we will bring data in from discharge_date.
@@ -125,7 +123,8 @@ def fullmonty():
             # But if it is not in that format, we need to modify it from the string form to a date form.
             elif isinstance(row[8], str):
                 input_str = row[8]
-                # In case some of the discharge_dates come without the hours:minutes:seconds, we process them differently.
+                # In case some of the discharge_dates come without the hours:minutes:seconds,
+                # we process them differently.
                 if len(row[8]) > 14:
                     dt_object = datetime.strptime(input_str, '%Y-%m-%d %H:%M:%S UTC')
                     row[8] = dt_object
@@ -141,7 +140,8 @@ def fullmonty():
             # But if it is not in that format, we need to modify it from the string form to a date form.
             elif isinstance(row[7], str):
                 input_str = row[7]
-                # In case some of the admission_dates come without the hours:minutes:seconds, we process them differently.
+                # In case some of the admission_dates come without the hours:minutes:seconds,
+                # we process them differently.
                 if len(row[7]) > 14:
                     dt_object = datetime.strptime(input_str, '%Y-%m-%d %H:%M:%S UTC')
                     row[7] = dt_object
@@ -149,9 +149,10 @@ def fullmonty():
                     dt_object = datetime.strptime(input_str, '%Y-%m-%d')
                     row[7] = dt_object
 
-                #short_str = input_str[0:10]
-                #dt_object = datetime.strptime(short_str, '%Y-%m-%d')
-                #row[7] = dt_object.strftime("%Y-%m-%d")
+                # Might come in handy later
+                # short_str = input_str[0:10]
+                # dt_object = datetime.strptime(short_str, '%Y-%m-%d')
+                # row[7] = dt_object.strftime("%Y-%m-%d")
 
             else:
                 print(f'date 7 not string or datetime...? {row[7]}')
@@ -182,7 +183,6 @@ def fullmonty():
             val = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], magic)
 
             cursor.execute(sql, val)
-            #print(cursor.rowcount, "admissions record inserted.")
 
     conn.commit()
 
@@ -196,7 +196,5 @@ def fullmonty():
                    "TIME_TO_SEC(TIMEDIFF(discharge_date, admission_date))  AS 'length_stay' FROM admissions;")
     conn.commit()
 
-if __name__ == '__imports__':
-    fullmonty()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

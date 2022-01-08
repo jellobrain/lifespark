@@ -8,8 +8,9 @@
 import pandas as pd
 import connection
 
-def members():
-    conn = connection.connect()
+
+def members(user, password):
+    conn = connection.connect(user, password)
     # I am assuming here that when new data is brought into this table, it will be an entire set,
     # so I am first deleting the data from the table.
     cursor = conn.cursor()
@@ -26,7 +27,7 @@ def members():
     mdataframe["dob"] = pd.to_datetime(mdataframe["dob"], format="%m/%d/%Y")
     mdataframe["dob"] = mdataframe["dob"].dt.strftime("%Y-%m-%d")
 
-    #Now we move through each row, and import the data into the table.
+    # Now we move through each row, and import the data into the table.
     for row in mdataframe.values:
         if not isinstance(row[0], int):
             pass
@@ -39,11 +40,9 @@ def members():
             val = (row[0], row[1], row[2], row[3], row[4])
 
             cursor.execute(sql, val)
-            #print(cursor.rowcount, "members record inserted.")
+            # print(cursor.rowcount, "members record inserted.")
 
     conn.commit()
 
-if __name__ == '__members__':
-    members()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
