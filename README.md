@@ -3,26 +3,27 @@
 1. This repository assumes that you have an empty database setup called 'lifespark' on a local mysql server.
 2. It also assumes the use of Python3.
 3. Code is commented out for readability.
-4. Each of the python files listed below has a connection section of code with specific information about user/password that need to be configured first for the local environment you are working with.  I have commented those areas with the words 'CHANGEME'.
-5. To run the files, navigate to the lifespark/charette folder, and type 'python3 <filename>'.
-
-## Next Steps
-One thing I though might be helpful is giving an idea of what I would do if there were more time to clean things up.
-
-1. Right now although they are written using python, they aren't set up in a way that capitalized on the objects and classes being thrown around here.  If I were to refactor, the first thing that I would do is to model the code in OOP.  I think it would shorten it, and it would also make it possible to make number 2 happen.
-
-2. The next thing I would do is to create an admin/main landing page from which a person could execute the things needed but through more of a guided user interface that steers you through a process of selecting options instead of running files from the terminal.  
+4. In connection.py you must set the user/password that need to be configured for the local environment you are working with.  I have commented those areas with the words 'CHANGEME'.
+5. To run the files, navigate to the lifespark/charette folder, and type 'python3 administer.py', and this should lead you through the different processes.
 
 # Files
 The files in the lifespark repository are files that I was provided with by lifespark
 
 The files that do all the magic, are in the lifespark/charette folder.  They are organized into processes:
 
+### administer.py
+This is the file that houses the complete GUI for the process of bringing in these files.
+
+### connection.py
+This file manages the connections to the database and MUST BE EDITED TO INCLUDE YOUR LOCAL SQL INFORMATION.
+
 ### import.py
-THIS IS THE FIRST FILE YOU SHOULD RUN. It adds some database views that will not be added if this is not run.
+This is the files that performs all of the imports, and is triggered by selecting certain options in the GUI.
+It is important to run this at least once before choosing to run reports, as it adds some database views that will not be added if this is not run.
   
 The import.py file takes care of uploading and processing the different csv files into the database.  
 It also creates a list of views that will be used later in the 'results.py' file.
+
 This file is complete for all three data sets, but the datasets can also be imported individually using the:
 1. members.py
 2. codes.py
