@@ -1,1 +1,6 @@
 /charette/venv/
+/charette/.idea
+/.idea
+/charette/__pycache__
+/__pycache__
+/.idea/workspace.xml
