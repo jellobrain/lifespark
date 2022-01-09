@@ -56,6 +56,27 @@ def home():
             quit()
 
 
+def complete():
+    layout = [[Sg.Text("Your task was completed.  What would you like to do next?")],
+              [Sg.Button("Go to Home Screen")], [Sg.Button("Exit")]]
+
+    # Create the window
+    window = Sg.Window("Complete", layout)
+
+    # Create an event loop
+    while True:
+        event, values = window.read()
+        # End program if user closes window or
+        # presses the OK button
+        if event == "Go to Home Screen":
+            window.close()
+            home()
+
+        elif event == "Exit" or event == Sg.WIN_CLOSED:
+            window.close()
+            quit()
+
+
 def leimports():
     layout = [[Sg.Text("If you have an empty database with no tables already in it, "
                        "please choose to undeergo the fullmonty.  If you already have data in the tables, \n"

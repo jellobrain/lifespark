@@ -118,7 +118,7 @@ def admissions(user, password):
 
     conn.commit()
 
-    main.home()
+    main.complete()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

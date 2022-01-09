@@ -192,7 +192,7 @@ def fullmonty(user, password):
                    "TIME_TO_SEC(TIMEDIFF(discharge_date, admission_date))  AS 'length_stay' FROM admissions;")
     conn.commit()
 
-    main.home()
+    main.complete()
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
